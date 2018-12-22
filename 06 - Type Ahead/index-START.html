@@ -17,7 +17,12 @@
 <script>
   const cities = [];
   const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
-  fetch(endpoint).then(place => place.json()).then(city => cities.push(...city));
+  async function fetchPlaces(endpoint) {
+    let response = await fetch(endpoint);
+    let newCities = await response.json();
+    cities.push(...newCities);
+  }
+  fetchPlaces(endpoint);
 
 
   function findMatchingCities(searchWord) {
